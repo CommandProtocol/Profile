@@ -1,83 +1,70 @@
-let skillCount = 1;
+document.addEventListener("DOMContentLoaded", function () {
+    let skillCounter = 1;
 
-function addSkill() {
-    skillCount++;
-    const skillContainer = document.getElementById('skills-container');
-    const newSkillForm = document.createElement('div');
-    newSkillForm.classList.add('skill-form');
-    newSkillForm.id = `skill${skillCount}`;
+    // Add Skill
+    document.getElementById("addSkillBtn").addEventListener("click", function () {
+        skillCounter++;
 
-    newSkillForm.innerHTML = `
-        <h4>Skill ${skillCount}:</h4>
-        <label for="skill${skillCount}Name">Tên:</label>
-        <input type="text" id="skill${skillCount}Name" class="input-field">
+        const skillsContainer = document.getElementById("skillsContainer");
+        const skillForm = document.createElement("div");
+        skillForm.classList.add("form-group");
+        skillForm.id = "skill" + skillCounter;
 
-        <label for="skill${skillCount}Form">Form:</label>
-        <input type="checkbox" id="skill${skillCount}Passive"> Passive
-        <input type="checkbox" id="skill${skillCount}Active" class="input-field" checked> Active
+        skillForm.innerHTML = `
+            <label for="skillName${skillCounter}">Skill ${skillCounter} Tên:</label>
+            <input type="text" id="skillName${skillCounter}" class="form-control" name="skillName${skillCounter}">
 
-        <label for="skill${skillCount}Desc">Miêu tả:</label>
-        <textarea id="skill${skillCount}Desc" class="input-field"></textarea>
+            <label>Form:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="active${skillCounter}" name="skillType${skillCounter}" value="Active" checked>
+                <label class="form-check-label" for="active${skillCounter}">Active</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="passive${skillCounter}" name="skillType${skillCounter}" value="Passive">
+                <label class="form-check-label" for="passive${skillCounter}">Passive</label>
+            </div>
 
-        <label for="skill${skillCount}Dura">Dura:</label>
-        <input type="number" id="skill${skillCount}Dura" class="input-field">
+            <label for="skillDescription${skillCounter}">Miêu tả:</label>
+            <textarea id="skillDescription${skillCounter}" class="form-control" name="skillDescription${skillCounter}" rows="3"></textarea>
 
-        <label for="skill${skillCount}CD">CD:</label>
-        <input type="number" id="skill${skillCount}CD" class="input-field">
-    `;
-    skillContainer.appendChild(newSkillForm);
-}
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="skillDuration${skillCounter}">Dura:</label>
+                    <input type="number" id="skillDuration${skillCounter}" class="form-control" name="skillDuration${skillCounter}">
+                </div>
+                <div class="col-md-6">
+                    <label for="skillCD${skillCounter}">CD:</label>
+                    <input type="number" id="skillCD${skillCounter}" class="form-control" name="skillCD${skillCounter}">
+                </div>
+            </div>
+        `;
 
-function submitForm() {
-    const resultDiv = document.getElementById('result');
-    const resultDetails = document.getElementById('resultDetails');
-
-    const baseStat = document.getElementById('baseStat').value;
-    const effectSlot = document.getElementById('effectSlot').value;
-    const powerType = document.getElementById('powerType').value;
-    const hp = document.getElementById('hp').value;
-    const def = document.getElementById('def').value;
-    const ref = document.getElementById('ref').value;
-    const atk = document.getElementById('atk').value;
-    const spd = document.getElementById('spd').value;
-    const regularAttack = document.getElementById('regularAttack').value;
-
-    let result = '';
-
-    if (baseStat) result += `**Base Stat**: ${baseStat}<br>`;
-    if (effectSlot) result += `**Effect Slot**: ${effectSlot}<br>`;
-    if (powerType) result += `**Phân loại sức mạnh**: ${powerType}<br>`;
-    if (hp) result += `**Hp**: ${hp}<br>`;
-    if (def) result += `**Def**: ${def}<br>`;
-    if (ref) result += `**Ref**: ${ref}<br>`;
-    if (atk) result += `**Atk**: ${atk}<br>`;
-    if (spd) result += `**Spd**: ${spd}<br>`;
-    if (regularAttack) result += `**Đòn Đánh Thường**: ${regularAttack}<br>`;
-
-    for (let i = 1; i <= skillCount; i++) {
-        const skillName = document.getElementById(`skill${i}Name`).value;
-        const skillForm = document.getElementById(`skill${i}Active`).checked ? "Active" : "Passive";
-        const skillDesc = document.getElementById(`skill${i}Desc`).value;
-        const skillDura = document.getElementById(`skill${i}Dura`).value;
-        const skillCD = document.getElementById(`skill${i}CD`).value;
-
-        if (skillName || skillForm || skillDesc || skillDura || skillCD) {
-            result += `<h4>Skill ${i}:</h4>`;
-            if (skillName) result += `**Tên**: ${skillName}<br>`;
-            if (skillForm) result += `**Form**: ${skillForm}<br>`;
-            if (skillDesc) result += `**Miêu tả**: ${skillDesc}<br>`;
-            if (skillDura) result += `**Dura**: ${skillDura}<br>`;
-            if (skillCD) result += `**CD**: ${skillCD}<br>`;
-        }
-    }
-
-    resultDetails.innerHTML = result;
-    resultDiv.style.display = 'block';
-}
-
-function copyResult() {
-    const resultText = document.getElementById('resultDetails').innerText;
-    navigator.clipboard.writeText(resultText).then(() => {
-        alert('Kết quả đã được sao chép!');
+        skillsContainer.appendChild(skillForm);
     });
-}
+
+    // Handle form submission
+    document.getElementById("statsForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const resultSection = document.getElementById("resultSection");
+        const resultText = document.getElementById("resultText");
+        let formData = new FormData(event.target);
+        let result = "";
+
+        formData.forEach((value, key) => {
+            if (value) {
+                result += `**${key}**: ${value}\n`;
+            }
+        });
+
+        resultText.textContent = result;
+        resultSection.style.display = "block";
+    });
+
+    // Copy result to clipboard
+    document.getElementById("copyBtn").addEventListener("click", function () {
+        const resultText = document.getElementById("resultText");
+        navigator.clipboard.writeText(resultText.textContent);
+        alert("Kết quả đã được sao chép!");
+    });
+});
