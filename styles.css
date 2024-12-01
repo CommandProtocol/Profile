@@ -1,0 +1,272 @@
+body {
+  background-image: url("new map.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+h4 {
+  font-size: 16px;
+  margin-top: 20px;
+  color: #333;
+}
+
+.form-container {
+  margin-bottom: 20px;
+}
+
+/* Cụm label và textbox */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Cụm Base Stat và Effect Slot */
+.inline-group {
+  display: inline-block;
+  width: 48%; /* Cả hai chiếm 48% chiều rộng */
+  margin-right: 2%; /* Giảm khoảng cách giữa 2 cụm */
+}
+
+.inline-group:last-child {
+  margin-right: 0;
+}
+
+label {
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+/* Chỉnh sửa cho radio buttons (Active/Passive) */
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+input[type="radio"]:checked + label {
+  font-weight: bold;
+}
+
+.skill-form label {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+/* Cụm Stats (HP, Def, Atk...) */
+.stat {
+  display: inline-block;
+  width: 22%; /* Mỗi stat chiếm 22% */
+  margin-right: 2%; /* Khoảng cách giữa các stat */
+}
+
+.stat:last-child {
+  margin-right: 0;
+}
+
+.stat label {
+  display: block;
+  font-weight: bold;
+}
+
+.stat input {
+  width: 100%; /* Chiếm toàn bộ chiều rộng */
+}
+
+/* Kết quả */
+.result-container {
+  margin-top: 30px;
+}
+
+.result-container h3 {
+  color: #333;
+  font-size: 20px;
+}
+
+.result-container div {
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .inline-group {
+    width: 48%; /* Cập nhật chiều rộng cho các cụm inline */
+    margin-right: 2%;
+  }
+
+  .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .stat {
+    width: 48%; /* Mỗi stat chiếm 48% trên màn hình nhỏ */
+    margin-right: 2%;
+  }
+
+  button,
+  .copy-btn {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  label {
+    width: 100%; /* Label chiếm toàn bộ chiều rộng */
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%; /* Textbox chiếm toàn bộ chiều rộng */
+  }
+
+  .inline-group {
+    width: 100%; /* Cập nhật chiều rộng cho các cụm inline trên màn hình rất nhỏ */
+    margin-right: 0;
+  }
+
+  .stat {
+    width: 100%; /* Các stat chiếm toàn bộ chiều rộng */
+    margin-right: 0;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 14px;
+  }
+}
+
+.main_page {
+  color: white;
+  padding: 30px;
+  margin: 70px auto auto auto;
+  width: 60%;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(103, 0, 0, 0.3);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 68, 0, 0.5);
+}
+
+.skill_border {
+  border: 1px solid rgba(255, 68, 0, 0.5);
+  width: 100%;
+  color: white;
+}
+
+.skill_content {
+  padding: 30px;
+}
+
+.skill_title {
+  background: rgba(103, 0, 0, 0.3);
+  color: white;
+  border-bottom: 100px solid red;
+
+  border-right: 25px solid transparent;
+  height: 0;
+  width: 100px;
+}
+
+.collapsible {
+  color: #ff3421 !important;
+  background: none;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.content {
+  font-size: 17px;
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+}
+
+.main_font {
+  color: #ff3421 !important;
+  font-family: "Tektur", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.title {
+  text-align: center;
+  font-size: 32px;
+  color: #fff;
+}
+
+.active,
+.collapsible {
+  font-weight: bolder;
+  font-size: 22px;
+  color: #fff;
+}
+
+.bold_header {
+  color: #ff3421;
+  font-weight: bold;
+}
+
+.leader {
+  color: #ff3421;
+  font-style: italic;
+  font-weight: lighter !important;
+}
+.inner_content {
+  margin-left: 25px;
+}
