@@ -23,7 +23,7 @@
             color: white;
             padding: 30px;
             margin: 70px auto auto auto;
-            width: 60%;
+            max-width: 800px;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(103, 0, 0, 0.3);
@@ -42,6 +42,32 @@
             border-radius: 4px;
             border: 1px solid #ccc;
         }
+
+        .btn {
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-row .col {
+                margin-bottom: 15px;
+            }
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+        }
+
+        .result-container pre {
+            color: white;
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -50,19 +76,19 @@
         <h1 class="text-center text-danger">CHARACTER STATS</h1>
 
         <div class="container">
-            <form>
+            <form id="statsForm">
                 <!-- Base Stat và Effect Slot -->
                 <div class="form-row align-items-center mb-3">
-                    <div class="col-auto">
+                    <div class="col-sm-4 col-md-3">
                         <label for="baseStat" class="col-form-label">Base Stat:</label>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-8 col-md-3">
                         <input type="number" id="baseStat" class="form-control" name="baseStat" required>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-sm-4 col-md-3">
                         <label for="effectSlot" class="col-form-label">Effect Slot:</label>
                     </div>
-                    <div class="col">
+                    <div class="col-sm-8 col-md-3">
                         <input type="number" id="effectSlot" class="form-control" name="effectSlot" required>
                     </div>
                 </div>
@@ -101,47 +127,63 @@
                     <input type="text" id="normalAttack" class="form-control" name="normalAttack">
                 </div>
 
-                <!-- Skill 1 -->
-                <div class="form-group">
-                    <label for="skillName1">Skill 1 Tên:</label>
-                    <input type="text" id="skillName1" class="form-control" name="skillName1">
+                <!-- Skill Form -->
+                <div id="skillsContainer">
+                    <div class="form-group" id="skill1">
+                        <label for="skillName1">Skill 1 Tên:</label>
+                        <input type="text" id="skillName1" class="form-control" name="skillName1">
+                    </div>
+                    <div class="form-group">
+                        <label>Form:</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="active1" name="skillType1" value="Active"
+                                checked>
+                            <label class="form-check-label" for="active1">Active</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="passive1" name="skillType1"
+                                value="Passive">
+                            <label class="form-check-label" for="passive1">Passive</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="skillDescription1">Miêu tả:</label>
+                        <textarea id="skillDescription1" class="form-control" name="skillDescription1"
+                            rows="3"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <label for="skillDuration1">Dura:</label>
+                            <input type="number" id="skillDuration1" class="form-control" name="skillDuration1">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="skillCD1">CD:</label>
+                            <input type="number" id="skillCD1" class="form-control" name="skillCD1">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Form:</label>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="active1" name="skillType1" value="Active" checked>
-                        <label class="form-check-label" for="active1">Active</label>
+                <div class="form-row mt-4">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary" id="addSkillBtn">Thêm Skill</button>
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="passive1" name="skillType1" value="Passive">
-                        <label class="form-check-label" for="passive1">Passive</label>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success">Xác Nhận</button>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="skillDescription1">Miêu tả:</label>
-                    <textarea id="skillDescription1" class="form-control" name="skillDescription1" rows="3"></textarea>
-                </div>
-
-                <div class="form-row">
-                    <div class="col">
-                        <label for="skillDuration1">Dura:</label>
-                        <input type="number" id="skillDuration1" class="form-control" name="skillDuration1">
-                    </div>
-                    <div class="col">
-                        <label for="skillCD1">CD:</label>
-                        <input type="number" id="skillCD1" class="form-control" name="skillCD1">
-                    </div>
-                </div>
-
-                <div class="form-group mt-4">
-                    <button type="button" class="btn btn-primary">Thêm Skill</button>
-                    <button type="submit" class="btn btn-success">Xác Nhận</button>
                 </div>
             </form>
         </div>
+
+        <!-- Result Section -->
+        <div id="resultSection" class="result-container" style="display: none;">
+            <h3 class="text-center text-danger">Kết Quả Nhập</h3>
+            <pre id="resultText"></pre>
+            <button id="copyBtn" class="btn btn-warning">Copy Kết Quả</button>
+        </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
