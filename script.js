@@ -11,12 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
         skillForm.id = "skill" + skillCounter;
 
         skillForm.innerHTML = `
-            <label for="skillName${skillCounter}">Skill ${skillCounter} Tên:</label>
+            <label for="skillName${skillCounter}">Skill ${skillCounter}</label> 
+            <br>
+            <span> Tên </span>
             <input type="text" id="skillName${skillCounter}" class="form-control" name="skillName${skillCounter}">
 
             <label>Form:</label>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="active${skillCounter}" name="skillType${skillCounter}" value="Active" checked>
+                <input class="form-check-input" type="radio" id="active${skillCounter}" name="Type${skillCounter}" value="Active" checked>
                 <label class="form-check-label" for="active${skillCounter}">Active</label>
             </div>
             <div class="form-check form-check-inline">

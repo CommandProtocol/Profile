@@ -8,22 +8,70 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
-        body {
-            background-image: url("bg.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
+        /* Điều chỉnh tiêu đề */
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Điều chỉnh Base Stat và Effect Slot */
+        .form-row.inline-fields {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .form-row.inline-fields {
+                flex-wrap: wrap;
+            }
+
+            .form-row.inline-fields .col {
+                width: 100%;
+                /* Xuống dòng, full-width */
+            }
+        }
+
+        /* Điều chỉnh form-group cho di động */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 576px) {
+            .form-group {
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Giao diện card */
+        .card-body {
             padding: 20px;
         }
 
+        @media (max-width: 576px) {
+            .card-body {
+                padding: 15px;
+            }
+        }
+
+        /* Giao diện chính */
         .main_page {
             color: white;
             padding: 30px;
-            margin: 70px auto auto auto;
-            max-width: 800px;
+            margin: 50px auto;
+            width: 75%;
             background: rgba(0, 0, 0, 0.8);
             border-radius: 16px;
             box-shadow: 0 4px 30px rgba(103, 0, 0, 0.3);
@@ -32,179 +80,257 @@
             border: 1px solid rgba(255, 68, 0, 0.5);
         }
 
-        .form-group label {
-            color: #ff3421;
-            font-weight: bold;
-        }
-
-        .form-control {
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        .btn {
-            width: 100%;
-        }
-
         @media (max-width: 576px) {
-            .form-row {
-                flex-direction: column;
-            }
-
-            .form-row .col {
-                margin-bottom: 15px;
+            .main_page {
+                width: 90%;
+                /* Thu hẹp khi màn hình nhỏ */
+                padding: 20px;
             }
         }
 
-        .result-container {
-            margin-top: 30px;
+        /* Giao diện kết quả */
+        #resultSection {
+            margin-top: 20px;
+        }
+
+        body {
+            background-image: url("bg.jpg");
+            /* Đường dẫn đến ảnh nền */
+            background-size: cover;
+            /* Đảm bảo ảnh phủ toàn bộ màn hình */
+            background-repeat: no-repeat;
+            /* Không lặp lại ảnh */
+            background-attachment: fixed;
+            /* Ảnh nền cố định khi cuộn */
+            background-position: center;
+            /* Căn giữa hình ảnh */
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
             padding: 20px;
-            background-color: #333;
-            border-radius: 10px;
-        }
-
-        .result-container pre {
-            color: white;
-            font-size: 16px;
-        }
-
-        .input-group {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .input-group .form-control {
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        .input-group .form-control:last-child {
-            margin-right: 0;
-        }
-
-        .input-group-prepend {
-            flex: 0 0 100px;
-            display: flex;
-            align-items: center;
         }
     </style>
+
+
 </head>
 
-<body>
+<body class=" container py-5">
     <div class="main_page">
-        <h1 class="text-center text-danger">CHARACTER STATS</h1>
+        <div class="">
+            <div class="card-body">
+                <h1 class="text-center text-warning mb-4">CHARACTER STATS</h1>
+                <form id="statsForm">
+                    <!-- Base Stat và Effect Slot -->
+                    <div class="form-row inline-fields mb-3">
+                        <div class="col">
+                            <label for="baseStat">Base Stat:</label>
+                            <input type="number" id="baseStat" class="form-control" name="baseStat" required>
+                        </div>
+                        <div class="col">
+                            <label for="effectSlot">Effect Slot:</label>
+                            <input type="number" id="effectSlot" class="form-control" name="effectSlot" required>
+                        </div>
+                    </div>
 
-        <div class="container">
-            <form id="statsForm">
-                <!-- Base Stat và Effect Slot -->
-                <div class="form-row align-items-center mb-3">
-                    <div class="col-sm-4 col-md-2">
-                        <label for="baseStat" class="col-form-label">Base Stat:</label>
+                    <!-- Phân loại sức mạnh -->
+                    <div class="form-group">
+                        <label for="powerType">Phân loại sức mạnh:</label>
+                        <input type="text" id="powerType" class="form-control" name="powerType">
                     </div>
-                    <div class="col-sm-8 col-md-4">
-                        <input type="number" id="baseStat" class="form-control" name="baseStat" required>
-                    </div>
-                    <div class="col-sm-4 col-md-2">
-                        <label for="effectSlot" class="col-form-label">Effect Slot:</label>
-                    </div>
-                    <div class="col-sm-8 col-md-4">
-                        <input type="number" id="effectSlot" class="form-control" name="effectSlot" required>
-                    </div>
-                </div>
 
-                <!-- Phân loại sức mạnh -->
-                <div class="form-group">
-                    <label for="powerType">Phân loại sức mạnh:</label>
-                    <input type="text" id="powerType" class="form-control" name="powerType">
-                </div>
-
-                <!-- Các chỉ số -->
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <label for="hp">HP</label>
-                        <input type="number" id="hp" class="form-control" name="hp">
+                    <!-- Các chỉ số -->
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="hp">HP:</label>
+                            <input type="number" id="hp" class="form-control" name="hp">
+                        </div>
+                        <div class="form-group col">
+                            <label for="def">Def:</label>
+                            <input type="number" id="def" class="form-control" name="def">
+                        </div>
+                        <div class="form-group col">
+                            <label for="ref">Ref:</label>
+                            <input type="number" id="ref" class="form-control" name="ref">
+                        </div>
+                        <div class="form-group col">
+                            <label for="atk">Atk:</label>
+                            <input type="number" id="atk" class="form-control" name="atk">
+                        </div>
+                        <div class="form-group col">
+                            <label for="spd">Spd:</label>
+                            <input type="number" id="spd" class="form-control" name="spd">
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="def">Def</label>
-                        <input type="number" id="def" class="form-control" name="def">
-                    </div>
-                    <div class="col">
-                        <label for="atk">Atk</label>
-                        <input type="number" id="atk" class="form-control" name="atk">
-                    </div>
-                    <div class="col">
-                        <label for="spd">Spd</label>
-                        <input type="number" id="spd" class="form-control" name="spd">
-                    </div>
-                </div>
 
-                <h1 class="text-center text-danger">SKILL SET</h1>
+                    <h1 class="text-center text-warning mt-4">SKILL SET</h1>
 
-                <!-- Đòn Đánh Thường -->
-                <div class="form-group">
-                    <label for="normalAttack">Đòn Đánh Thường:</label>
-                    <input type="text" id="normalAttack" class="form-control" name="normalAttack">
-                </div>
+                    <!-- Đòn Đánh Thường -->
+                    <div class="form-group">
+                        <label for="normalAttack">Đòn Đánh Thường:</label>
+                        <input type="text" id="normalAttack" class="form-control" name="normalAttack">
+                    </div>
 
-                <!-- Skill Form -->
-                <div id="skillsContainer">
-                    <div class="form-group" id="skill1">
-                        <label for="skillName1">Skill 1 Tên:</label>
-                        <input type="text" id="skillName1" class="form-control" name="skillName1">
+                    <!-- Skill Form Container -->
+                    <div id="skillsContainer">
+                        <div class="card bg-dark text-light mb-3" id="skill1">
+                            <div class="card-body">
+                                <h5 class="card-title">Skill 1</h5>
+                                <div class="form-group">
+                                    <label for="skillName1">Tên:</label>
+                                    <input type="text" id="skillName1" class="form-control" name="skillName1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Form:</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="active1" name="skillType1"
+                                            value="Active" checked>
+                                        <label class="form-check-label" for="active1">Active</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="passive1" name="skillType1"
+                                            value="Passive">
+                                        <label class="form-check-label" for="passive1">Passive</label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="skillDescription1">Miêu tả:</label>
+                                    <textarea id="skillDescription1" class="form-control" name="skillDescription1"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="skillDuration1">Dura:</label>
+                                        <input type="number" id="skillDuration1" class="form-control"
+                                            name="skillDuration1">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="skillCD1">CD:</label>
+                                        <input type="number" id="skillCD1" class="form-control" name="skillCD1">
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-danger remove-skill" data-id="1">Xóa Skill</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-4">
+                        <div class="col-12 mb-2">
+                            <button type="button" class="btn btn-primary btn-block" id="addSkillBtn">Thêm Skill</button>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-success btn-block">Xác Nhận</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Result Section -->
+        <div class="card bg-secondary shadow mt-4" id="resultSection" style="display: none;">
+            <div class="card-body">
+                <h3 class="text-center text-warning">Kết Quả Nhập</h3>
+                <pre id="resultText" class="bg-dark text-light p-3 rounded"></pre>
+                <button id="copyBtn" class="btn btn-warning btn-block">Copy Kết Quả</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let skillCount = 1;
+
+        // Add Skill
+        document.getElementById("addSkillBtn").addEventListener("click", () => {
+            skillCount++;
+            const skillForm = document.createElement("div");
+            skillForm.className = "card bg-dark text-light mb-3";
+            skillForm.id = `skill${skillCount}`;
+            skillForm.innerHTML = `
+                <div class="card-body">
+                    <h5 class="card-title">Skill ${skillCount}</h5>
+                    <div class="form-group">
+                        <label for="skillName${skillCount}">Tên:</label>
+                        <input type="text" id="skillName${skillCount}" class="form-control" name="skillName${skillCount}">
                     </div>
                     <div class="form-group">
                         <label>Form:</label>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="active1" name="skillType1" value="Active"
-                                checked>
-                            <label class="form-check-label" for="active1">Active</label>
+                            <input class="form-check-input" type="radio" id="active${skillCount}" name="skillType${skillCount}" value="Active" checked>
+                            <label class="form-check-label" for="active${skillCount}">Active</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="passive1" name="skillType1"
-                                value="Passive">
-                            <label class="form-check-label" for="passive1">Passive</label>
+                            <input class="form-check-input" type="radio" id="passive${skillCount}" name="skillType${skillCount}" value="Passive">
+                            <label class="form-check-label" for="passive${skillCount}">Passive</label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="skillDescription1">Miêu tả:</label>
-                        <textarea id="skillDescription1" class="form-control" name="skillDescription1"
-                            rows="3"></textarea>
+                        <label for="skillDescription${skillCount}">Miêu tả:</label>
+                        <textarea id="skillDescription${skillCount}" class="form-control" name="skillDescription${skillCount}" rows="3"></textarea>
                     </div>
-
                     <div class="form-row">
-                        <div class="col-md-6">
-                            <label for="skillDuration1">Dura:</label>
-                            <input type="number" id="skillDuration1" class="form-control" name="skillDuration1">
+                        <div class="form-group col-md-6">
+                            <label for="skillDuration${skillCount}">Dura:</label>
+                            <input type="number" id="skillDuration${skillCount}" class="form-control" name="skillDuration${skillCount}">
                         </div>
-                        <div class="col-md-6">
-                            <label for="skillCD1">CD:</label>
-                            <input type="number" id="skillCD1" class="form-control" name="skillCD1">
+                        <div class="form-group col-md-6">
+                            <label for="skillCD${skillCount}">CD:</label>
+                            <input type="number" id="skillCD${skillCount}" class="form-control" name="skillCD${skillCount}">
                         </div>
                     </div>
+                    <button type="button" class="btn btn-danger remove-skill" data-id="${skillCount}">Xóa Skill</button>
                 </div>
+            `;
+            document.getElementById("skillsContainer").appendChild(skillForm);
+        });
 
-                <div class="form-row mt-4">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-primary" id="addSkillBtn">Thêm Skill</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-success">Xác Nhận</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+        // Remove Skill
+        document.getElementById("skillsContainer").addEventListener("click", (e) => {
+            if (e.target.classList.contains("remove-skill")) {
+                const id = e.target.dataset.id;
+                document.getElementById(`skill${id}`).remove();
+                skillCount--;
+                updateSkillNumbers();
+            }
+        });
 
-        <!-- Result Section -->
-        <div id="resultSection" class="result-container" style="display: none;">
-            <h3 class="text-center text-danger">Kết Quả Nhập</h3>
-            <pre id="resultText"></pre>
-            <button id="copyBtn" class="btn btn-warning">Copy Kết Quả</button>
-        </div>
-    </div>
+        // Update Skill Numbers
+        function updateSkillNumbers() {
+            const skillForms = document.querySelectorAll(".skill-form");
+            skillForms.forEach((form, index) => {
+                form.id = `skill${index + 1}`;
+                form.querySelector(".card-title").textContent = `Skill ${index + 1}`;
+                form.querySelectorAll("input, textarea").forEach((input) => {
+                    const name = input.name.replace(/\d+$/, index + 1);
+                    const id = input.id.replace(/\d+$/, index + 1);
+                    input.name = name;
+                    input.id = id;
+                });
+                form.querySelector(".remove-skill").dataset.id = index + 1;
+            });
+        }
 
-    <script src="script.js"></script>
+        // Submit Form
+        document.getElementById("statsForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            let result = "";
+
+            // Append all fields to result
+            formData.forEach((value, key) => {
+                if (value.trim()) {
+                    result += `**${key.toUpperCase()}**: ${value}\n`;
+                }
+            });
+
+            document.getElementById("resultText").textContent = result;
+            document.getElementById("resultSection").style.display = "block";
+        });
+
+        // Copy Result
+        document.getElementById("copyBtn").addEventListener("click", () => {
+            const resultText = document.getElementById("resultText").textContent;
+            navigator.clipboard.writeText(resultText);
+            alert("Kết quả đã được sao chép!");
+        });
+    </script>
 </body>
 
 </html>
