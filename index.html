@@ -199,12 +199,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="skillDuration1">Dura:</label>
-                                        <input type="number" id="skillDuration1" class="form-control"
+                                        <input type="text" id="skillDuration1" class="form-control"
                                             name="skillDuration1">
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="skillCD1">CD:</label>
-                                        <input type="number" id="skillCD1" class="form-control" name="skillCD1">
+                                        <input type="text" id="skillCD1" class="form-control" name="skillCD1">
                                     </div>
                                 </div>
                                 <button type="button" class="btn btn-danger remove-skill" data-id="1">Xóa Skill</button>
@@ -313,10 +313,47 @@
             const formData = new FormData(e.target);
             let result = "";
 
-            // Append all fields to result
+            // Append formatted fields to result
             formData.forEach((value, key) => {
                 if (value.trim()) {
-                    result += `**${key.toUpperCase()}**: ${value}\n`;
+                    switch (true) {
+                        // Các trường đặc biệt cần chỉnh sửa
+                        case key === "baseStat":
+                            result += `**BASE STAT**: ${value}\n\n`;
+                            break;
+                        case key === "effectSlot":
+                            result += `**EFFECT SLOT**: ${value}\n\n`;
+                            break;
+                        case key === "powerType":
+                            result += `**PHÂN LOẠI SỨC MẠNH**: ${value}\n\n`;
+                            break;
+                        case key === "normalAttack":
+                            result += `**Đòn đánh thường**: ${value}\n\n`;
+                            break;
+
+                        // Trường liên quan đến skill
+                        case key.match(/^skillName\d+$/) !== null:
+                            const skillIndex = key.match(/\d+/)[0]; // Lấy số thứ tự skill
+                            result += `**SKILL ${skillIndex}: ${value}**\n`;
+                            break;
+                        case key.match(/^skillType\d+$/) !== null:
+                            result += `**TYPE**: ${value}\n`;
+                            break;
+                        case key.match(/^skillDescription\d+$/) !== null:
+                            result += `**MÔ TẢ**: ${value}\n`;
+                            break;
+                        case key.match(/^skillDuration\d+$/) !== null:
+                            result += `**Dura**: ${value}\n`;
+                            break;
+                        case key.match(/^skillCD\d+$/) !== null:
+                            result += `**CD**: ${value}\n\n`;
+                            break;
+
+                        // Các trường mặc định
+                        default:
+                            result += `**${key.toUpperCase()}**: ${value}\n`;
+                            break;
+                    }
                 }
             });
 
