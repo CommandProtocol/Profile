@@ -4,370 +4,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKILL SET GENERATOR</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Character Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
     <style>
-        /* Điều chỉnh tiêu đề */
-        h1 {
-            font-size: 2.5rem;
+        body {
+            background-color: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Điều chỉnh Base Stat và Effect Slot */
-        .form-row.inline-fields {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: nowrap;
-            gap: 20px;
-        }
-
-        @media (max-width: 576px) {
-            .form-row.inline-fields {
-                flex-wrap: wrap;
-            }
-
-            .form-row.inline-fields .col {
-                width: 100%;
-                /* Xuống dòng, full-width */
-            }
-        }
-
-        /* Điều chỉnh form-group cho di động */
-        .form-group {
+        h2,
+        h3 {
+            color: #ff3333;
+            text-transform: uppercase;
+            border-bottom: 2px solid #ff3333;
+            padding-bottom: 5px;
             margin-bottom: 15px;
         }
 
-        @media (max-width: 576px) {
-            .form-group {
-                margin-bottom: 10px;
-            }
+        label {
+            font-weight: bold;
+            color: #ff5555;
         }
 
-        /* Giao diện card */
-        .card-body {
-            padding: 20px;
+        input,
+        textarea {
+            background-color: #222;
+            color: #fff;
+            border: 1px solid #ff3333;
+            padding: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 5px;
         }
 
-        @media (max-width: 576px) {
-            .card-body {
-                padding: 15px;
-            }
-        }
-
-        /* Giao diện chính */
-        .main_page {
+        button {
+            background-color: #ff3333;
             color: white;
-            padding: 30px;
-            margin: 50px auto;
-            width: 75%;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 16px;
-            box-shadow: 0 4px 30px rgba(103, 0, 0, 0.3);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 68, 0, 0.5);
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
         }
 
-        @media (max-width: 576px) {
-            .main_page {
-                width: 90%;
-                /* Thu hẹp khi màn hình nhỏ */
-                padding: 20px;
+        button:hover {
+            background-color: #cc0000;
+        }
+
+        .border {
+            border: 2px solid #ff3333 !important;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        pre {
+            background-color: #222;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ff3333;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
             }
-        }
 
-        /* Giao diện kết quả */
-        #resultSection {
-            margin-top: 20px;
-        }
-
-        body {
-            background-image: url("bg.jpg");
-            /* Đường dẫn đến ảnh nền */
-            background-size: cover;
-            /* Đảm bảo ảnh phủ toàn bộ màn hình */
-            background-repeat: no-repeat;
-            /* Không lặp lại ảnh */
-            background-attachment: fixed;
-            /* Ảnh nền cố định khi cuộn */
-            background-position: center;
-            /* Căn giữa hình ảnh */
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-            padding: 20px;
+            button {
+                width: 100%;
+            }
         }
     </style>
-
-
 </head>
 
-<body class=" container py-5">
-    <div class="main_page">
-        <div class="">
-            <div class="card-body">
-                <h1 class="text-center text-warning mb-4">CHARACTER STATS</h1>
-                <form id="statsForm">
-                    <!-- Base Stat và Effect Slot -->
-                    <div class="form-row inline-fields mb-3">
-                        <div class="col">
-                            <label for="baseStat">Base Stat:</label>
-                            <input type="number" id="baseStat" class="form-control" name="baseStat" required>
-                        </div>
-                        <div class="col">
-                            <label for="effectSlot">Effect Slot:</label>
-                            <input type="number" id="effectSlot" class="form-control" name="effectSlot" required>
-                        </div>
-                    </div>
+<body class="container mt-4">
 
-                    <!-- Phân loại sức mạnh -->
-                    <div class="form-group">
-                        <label for="powerType">Phân loại sức mạnh:</label>
-                        <input type="text" id="powerType" class="form-control" name="powerType">
-                    </div>
+    <h3>Chỉ số</h3>
+    <label>HP: <input type="number" id="hp" class="form-control" oninput="updatePowerPack()"></label><br>
+    <label>Atk: <input type="text" id="atk" class="form-control"></label><br>
+    <label>Def: <input type="text" id="def" class="form-control"></label><br>
+    <label>Ref: <input type="text" id="ref" class="form-control"></label><br>
+    <label>Vit: <input type="text" id="vit" class="form-control"></label><br>
+    <label>Fort: <input type="text" id="fort" class="form-control"></label><br>
+    <label>Aux: <input type="text" id="aux" class="form-control"></label><br>
+    <label>Spd: <input type="text" id="spd" class="form-control"></label><br>
 
-                    <!-- Các chỉ số -->
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <label for="hp">HP:</label>
-                            <input type="number" id="hp" class="form-control" name="hp">
-                        </div>
-                        <div class="form-group col">
-                            <label for="def">Def:</label>
-                            <input type="number" id="def" class="form-control" name="def">
-                        </div>
-                        <div class="form-group col">
-                            <label for="ref">Ref:</label>
-                            <input type="number" id="ref" class="form-control" name="ref">
-                        </div>
-                        <div class="form-group col">
-                            <label for="atk">Atk:</label>
-                            <input type="number" id="atk" class="form-control" name="atk">
-                        </div>
-                        <div class="form-group col">
-                            <label for="spd">Spd:</label>
-                            <input type="number" id="spd" class="form-control" name="spd">
-                        </div>
-                    </div>
+    <hr>
 
-                    <h1 class="text-center text-warning mt-4">SKILL SET</h1>
+    <h2>Phân loại sức mạnh</h2>
+    <textarea id="power_classification" rows="3" class="form-control"></textarea>
 
-                    <!-- Đòn Đánh Thường -->
-                    <div class="form-group">
-                        <label for="normalAttack">Đòn Đánh Thường:</label>
-                        <input type="text" id="normalAttack" class="form-control" name="normalAttack">
-                    </div>
+    <h2>Đòn Đánh Thường</h2>
+    <textarea id="basic_attack" rows="3" class="form-control"></textarea>
 
-                    <!-- Skill Form Container -->
-                    <div id="skillsContainer">
-                        <div class="card bg-dark text-light mb-3" id="skill1">
-                            <div class="card-body">
-                                <h5 class="card-title">Skill 1</h5>
-                                <div class="form-group">
-                                    <label for="skillName1">Tên:</label>
-                                    <input type="text" id="skillName1" class="form-control" name="skillName1">
-                                </div>
-                                <div class="form-group">
-                                    <label>Form:</label>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="active1" name="skillType1"
-                                            value="Active" checked>
-                                        <label class="form-check-label" for="active1">Active</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="passive1" name="skillType1"
-                                            value="Passive">
-                                        <label class="form-check-label" for="passive1">Passive</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="skillDescription1">Miêu tả:</label>
-                                    <textarea id="skillDescription1" class="form-control" name="skillDescription1"
-                                        rows="3"></textarea>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="skillDuration1">Dura:</label>
-                                        <input type="text" id="skillDuration1" class="form-control"
-                                            name="skillDuration1">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="skillCD1">CD:</label>
-                                        <input type="text" id="skillCD1" class="form-control" name="skillCD1">
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-danger remove-skill" data-id="1">Xóa Skill</button>
-                            </div>
-                        </div>
-                    </div>
+    <h2>Skill Set</h2>
+    <div id="skills"></div>
 
-                    <div class="form-row mt-4">
-                        <div class="col-12 mb-2">
-                            <button type="button" class="btn btn-primary btn-block" id="addSkillBtn">Thêm Skill</button>
-                        </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-success btn-block">Xác Nhận</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <button type="button" class="btn btn-primary mt-2" onclick="addSkill()">Thêm Skill</button>
+
+
+    <button type="button" class="btn btn-success mt-3" onclick="generateSummary()">Xác nhận</button>
+
+    <h2 class="mt-4">Tóm tắt</h2>
+    <pre id="summary"></pre>
+
+</body>
+
+<script>
+    let skillCount = 0;
+
+    function addSkill() {
+        skillCount++;
+        const skillContainer = document.createElement("div");
+        skillContainer.classList.add("border", "p-3", "mt-2", "skill-item");
+        skillContainer.setAttribute("data-skill-id", skillCount);
+
+        skillContainer.innerHTML = `
+        <h3 class="skill-title">Skill ${skillCount}</h3>
+        <label>Tên Skill: <input type="text" name="skill_name_${skillCount}" class="form-control"></label><br>
+        
+        <label>Form:</label>
+        <div class="form-check">
+            <input type="radio" name="skill_type_${skillCount}" value="Active" class="form-check-input">
+            <label class="form-check-label">Active</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" name="skill_type_${skillCount}" value="Passive" class="form-check-input">
+            <label class="form-check-label">Passive</label>
         </div>
 
-        <!-- Result Section -->
-        <div class="card bg-secondary shadow mt-4" id="resultSection" style="display: none;">
-            <div class="card-body">
-                <h3 class="text-center text-warning">Kết Quả Nhập</h3>
-                <pre id="resultText" class="bg-dark text-light p-3 rounded"></pre>
-                <button id="copyBtn" class="btn btn-warning btn-block">Copy Kết Quả</button>
-            </div>
-        </div>
-    </div>
+        <label>Miêu tả:</label><br>
+        <textarea name="skill_desc_${skillCount}" rows="3" class="form-control"></textarea><br>
 
-    <script>
-        let skillCount = 1;
+        <label>Dura:</label> <input type="text" name="dura_${skillCount}" class="form-control"><br>
+        <label>CD:</label> <input type="text" name="cd_${skillCount}" class="form-control"><br>
 
-        // Add Skill
-        document.getElementById("addSkillBtn").addEventListener("click", () => {
-            skillCount++;
-            const skillForm = document.createElement("div");
-            skillForm.className = "card bg-dark text-light mb-3";
-            skillForm.id = `skill${skillCount}`;
-            skillForm.innerHTML = `
-                <div class="card-body">
-                    <h5 class="card-title">Skill ${skillCount}</h5>
-                    <div class="form-group">
-                        <label for="skillName${skillCount}">Tên:</label>
-                        <input type="text" id="skillName${skillCount}" class="form-control" name="skillName${skillCount}">
-                    </div>
-                    <div class="form-group">
-                        <label>Form:</label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="active${skillCount}" name="skillType${skillCount}" value="Active" checked>
-                            <label class="form-check-label" for="active${skillCount}">Active</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="passive${skillCount}" name="skillType${skillCount}" value="Passive">
-                            <label class="form-check-label" for="passive${skillCount}">Passive</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="skillDescription${skillCount}">Miêu tả:</label>
-                        <textarea id="skillDescription${skillCount}" class="form-control" name="skillDescription${skillCount}" rows="3"></textarea>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="skillDuration${skillCount}">Dura:</label>
-                            <input type="number" id="skillDuration${skillCount}" class="form-control" name="skillDuration${skillCount}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="skillCD${skillCount}">CD:</label>
-                            <input type="number" id="skillCD${skillCount}" class="form-control" name="skillCD${skillCount}">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-danger remove-skill" data-id="${skillCount}">Xóa Skill</button>
-                </div>
-            `;
-            document.getElementById("skillsContainer").appendChild(skillForm);
+        <button type="button" class="btn btn-danger" onclick="removeSkill(${skillCount})">Xóa Skill</button>
+    `;
+
+        document.getElementById("skills").appendChild(skillContainer);
+    }
+
+    function removeSkill(id) {
+        const skillElement = document.querySelector(`[data-skill-id='${id}']`);
+        if (skillElement) {
+            skillElement.remove();
+        }
+        updateSkillOrder();
+    }
+
+    function updateSkillOrder() {
+    const skillElements = document.querySelectorAll(".skill-item");
+    skillCount = 0;
+
+    skillElements.forEach(skill => {
+        skillCount++;
+        skill.setAttribute("data-skill-id", skillCount);
+        skill.querySelector(".skill-title").innerText = `Skill ${skillCount}`;
+        
+        // Cập nhật lại name attribute để tránh lỗi khi xử lý dữ liệu
+        skill.querySelector("input[name^='skill_name']").setAttribute("name", `skill_name_${skillCount}`);
+        skill.querySelector("input[name^='skill_type']").setAttribute("name", `skill_type_${skillCount}`);
+        skill.querySelector("textarea[name^='skill_desc']").setAttribute("name", `skill_desc_${skillCount}`);
+        skill.querySelector("input[name^='dura']").setAttribute("name", `dura_${skillCount}`);
+        skill.querySelector("input[name^='cd']").setAttribute("name", `cd_${skillCount}`);
+        
+        // Cập nhật lại sự kiện xóa skill với ID mới
+        skill.querySelector("button").setAttribute("onclick", `removeSkill(${skillCount})`);
+    });
+}
+
+
+    function generateSummary() {
+        let summary = "";
+
+        // Phân loại sức mạnh
+        const powerClassification = document.getElementById("power_classification").value.trim();
+        if (powerClassification) summary += `**Phân loại sức mạnh:** *${powerClassification}*\n\n`;
+
+        // Đòn đánh thường
+        const basicAttack = document.getElementById("basic_attack").value.trim();
+        if (basicAttack) summary += `**Đòn đánh thường:** *${basicAttack}*\n\n`;
+
+        // Lấy chỉ số nhân vật
+        const stats = ["HP", "Atk", "Def", "Ref", "Vit", "Fort", "Aux", "Spd"];
+        let title = ""
+        let statSummary = "**Stat:**\n";
+        stats.forEach(stat => {
+            let value = document.getElementById(stat.toLowerCase()).value.trim();
+            if (value) statSummary += `- **${stat}:** ${value}\n`;
         });
+        if (statSummary !== "**Chỉ số:**\n") summary += statSummary + "\n";
 
-        // Remove Skill
-        document.getElementById("skillsContainer").addEventListener("click", (e) => {
-            if (e.target.classList.contains("remove-skill")) {
-                const id = e.target.dataset.id;
-                document.getElementById(`skill${id}`).remove();
-                skillCount--;
-                updateSkillNumbers();
+        // Skill Set
+        document.querySelectorAll("[data-skill-id]").forEach(skill => {
+            const skillId = skill.getAttribute("data-skill-id");
+            const name = document.querySelector(`[name="skill_name_${skillId}"]`).value.trim();
+            const formElement = document.querySelector(`[name="skill_type_${skillId}"]:checked`);
+            const form = formElement ? formElement.value : null; // Tránh lỗi nếu không chọn
+            const desc = document.querySelector(`[name="skill_desc_${skillId}"]`).value.trim();
+            const dura = document.querySelector(`[name="dura_${skillId}"]`).value.trim();
+            const cd = document.querySelector(`[name="cd_${skillId}"]`).value.trim();
+
+            if (name) {
+                summary += `**Skill ${skillId}: ${name}**\n`;
+                if (form) summary += `- **Form:** ${form}\n`;
+                if (desc) summary += `- **Miêu tả:** *${desc}*\n`;
+                if (dura) summary += `- **Dura:** ${dura}\n`;
+                if (cd) summary += `- **CD:** ${cd}\n`;
+                summary += "\n";
             }
         });
 
-        // Update Skill Numbers
-        function updateSkillNumbers() {
-            const skillForms = document.querySelectorAll(".skill-form");
-            skillForms.forEach((form, index) => {
-                form.id = `skill${index + 1}`;
-                form.querySelector(".card-title").textContent = `Skill ${index + 1}`;
-                form.querySelectorAll("input, textarea").forEach((input) => {
-                    const name = input.name.replace(/\d+$/, index + 1);
-                    const id = input.id.replace(/\d+$/, index + 1);
-                    input.name = name;
-                    input.id = id;
-                });
-                form.querySelector(".remove-skill").dataset.id = index + 1;
-            });
-        }
+        document.getElementById("summary").innerText = summary || "Không có dữ liệu!";
+    }
 
-        // Submit Form
-        document.getElementById("statsForm").addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            let result = "";
-
-            // Append formatted fields to result
-            formData.forEach((value, key) => {
-                if (value.trim()) {
-                    switch (true) {
-                        // Các trường đặc biệt cần chỉnh sửa
-                        case key === "baseStat":
-                            result += `**BASE STAT**: ${value}\n\n`;
-                            break;
-                        case key === "effectSlot":
-                            result += `**EFFECT SLOT**: ${value}\n\n`;
-                            break;
-                        case key === "powerType":
-                            result += `**PHÂN LOẠI SỨC MẠNH**: ${value}\n\n`;
-                            break;
-                        case key === "normalAttack":
-                            result += `**Đòn đánh thường**: ${value}\n\n`;
-                            break;
-
-                        // Trường liên quan đến skill
-                        case key.match(/^skillName\d+$/) !== null:
-                            const skillIndex = key.match(/\d+/)[0]; // Lấy số thứ tự skill
-                            result += `**SKILL ${skillIndex}: ${value}**\n`;
-                            break;
-                        case key.match(/^skillType\d+$/) !== null:
-                            result += `**TYPE**: ${value}\n`;
-                            break;
-                        case key.match(/^skillDescription\d+$/) !== null:
-                            result += `**MÔ TẢ**: ${value}\n`;
-                            break;
-                        case key.match(/^skillDuration\d+$/) !== null:
-                            result += `**Dura**: ${value}\n`;
-                            break;
-                        case key.match(/^skillCD\d+$/) !== null:
-                            result += `**CD**: ${value}\n\n`;
-                            break;
-
-                        // Các trường mặc định
-                        default:
-                            result += `**${key.toUpperCase()}**: ${value}\n`;
-                            break;
-                    }
-                }
-            });
-
-            document.getElementById("resultText").textContent = result;
-            document.getElementById("resultSection").style.display = "block";
-        });
-
-        // Copy Result
-        document.getElementById("copyBtn").addEventListener("click", () => {
-            const resultText = document.getElementById("resultText").textContent;
-            navigator.clipboard.writeText(resultText);
-            alert("Kết quả đã được sao chép!");
-        });
-    </script>
-</body>
+</script>
 
 </html>
